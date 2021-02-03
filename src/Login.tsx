@@ -1,12 +1,12 @@
 import React, { FormEvent, Component } from 'react'
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
+import cookie from 'react-cookies';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
-
 
 interface Props { }
 
@@ -25,16 +25,28 @@ export default class Login extends Component<Props, State> {
       axios.post('http://localhost:8080/auth/login', {
         username: data.get('username'),
         password: data.get('password')
-      }).then(res => console.log(res.data)).catch(error => {
+      }).then(res => {
+        const isRemember = data.get("is-remember") === 'on'
+        const token = res.data['access_token']
+        if (isRemember) {
+          // save token in cookie
+          const expires = new Date()
+          expires.setDate(expires.getDate() + 1)
+          cookie.save('token', token, { path: '/', expires })
+        } else {
+          // TODO: fix when add redux
+          cookie.save('token', token, { path: '/' })
+        }
+      }).catch(error => {
         if (error.response) {
           // client received an error response (5xx, 4xx)
           const { status } = error.response
           if (status === 401) {
-            toast.error("Thông tin đăng nhập không đúng");
+            toast.error('Thông tin đăng nhập không đúng');
           }
         } else if (error.request) {
           // client never received a response, or request never left
-          toast.error("Máy chủ không có phản hồi");
+          toast.error('Máy chủ không có phản hồi');
         } else {
           // only God knows
           console.log('Error', error.message);
@@ -47,7 +59,6 @@ export default class Login extends Component<Props, State> {
     return (
       <div>
         <Form onSubmit={this.handleSubmit} className='container'>
-
           <Form.Group className='row'>
             <InputGroup>
               <InputGroup.Prepend>
@@ -71,7 +82,7 @@ export default class Login extends Component<Props, State> {
           </Form.Group>
 
           <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
+            <Form.Check name="is-remember" type="checkbox" label="Remember me" />
           </Form.Group>
           <Button className='row' variant="primary" type="submit">
             Submit
