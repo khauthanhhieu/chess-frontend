@@ -11,6 +11,9 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Register from './components/Register';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   // return (
   //   <div className="App">
@@ -37,8 +40,8 @@ function App() {
         {/* <Header /> */}
         <hr />
         <div className="main-route-place">
-          <PrivateRoute exact path="/" component={Blog} />
-          <Route path="/login" component={Login} />
+          <PrivateRoute exact path="/" component={Blog}/>
+          <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout} />
           <Route path="/register" component={Register} />
           <Route path="/blog" component={Blog} />
@@ -52,6 +55,16 @@ function App() {
           </div>
         </div>
       </footer>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover />
     </div>
   );
 }

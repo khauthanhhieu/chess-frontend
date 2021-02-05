@@ -34,7 +34,7 @@ export default class BaseAPI {
       requestConfig.headers = { Authorization: `Bearer ${token}` };
     }
     
-    const s = axios.request(requestConfig).subscribe(
+    axios.request(requestConfig).subscribe(
       response => next(response),
       error => {
         if (error.response) {
@@ -50,10 +50,6 @@ export default class BaseAPI {
       },
       () => complete()
     )
-
-    setTimeout(() => {
-      s.unsubscribe();
-    }, 1000);
   }
 
   protected get(path: string, params: object, next?: Next, complete?: Complete) {

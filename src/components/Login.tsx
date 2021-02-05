@@ -3,16 +3,19 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import cookie from 'react-cookies';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
+import AuthAPI from '../api/auth.api'
 
 interface Props { }
 
 interface State { }
 
 export default class Login extends Component<Props, State> {
+  private authAPI = new AuthAPI()
+
   constructor(props: Props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,6 +25,16 @@ export default class Login extends Component<Props, State> {
     event.preventDefault();
     if (event.target) {
       const data = new FormData(event.target as HTMLFormElement);
+      const username = data.get('username')
+      const password = data.get('password')
+      if (!username || !password) {
+        toast.error('Dữ liệu đầu vào không hợp lệ')
+      } else {
+        this.authAPI.login(username.toString(), password.toString(), (res: Object) => {
+          console.log(res)
+        }, () => console.log('done'))
+      }
+
       axios.post('http://localhost:8080/auth/login', {
         username: data.get('username'),
         password: data.get('password')
@@ -88,16 +101,6 @@ export default class Login extends Component<Props, State> {
             Submit
         </Button>
         </Form>
-        <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover />
       </div>
     )
   }

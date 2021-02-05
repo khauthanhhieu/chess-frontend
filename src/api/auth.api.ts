@@ -1,3 +1,4 @@
+import { noop } from 'rxjs';
 import BaseAPI from './base.api';
 
 export default class AuthAPI extends BaseAPI {
@@ -6,7 +7,7 @@ export default class AuthAPI extends BaseAPI {
     this.module = 'auth';
   }
 
-  login(username: string, password: string, callback: Function) {
-    this.post('/login', { username, password }, res => callback(res));
+  login(username: string, password: string, next: Function, done: Function = noop) {
+    this.post('/login', { username, password }, res => next(res), () => done());
   }
 }
