@@ -1,8 +1,15 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import PrivateRoute from './elements/PrivateRoute';
+import {
+  Route, BrowserRouter as Router,
+} from 'react-router-dom';
 
-import Login from './Login';
+import Blog from './components/Blog'
+import Login from './components/Login';
+import Logout from './components/Logout';
+import Register from './components/Register';
 
 function App() {
   // return (
@@ -26,7 +33,25 @@ function App() {
 
   return (
     <div>
-      <Login />
+      <Router>
+        {/* <Header /> */}
+        <hr />
+        <div className="main-route-place">
+          <PrivateRoute exact path="/" component={Blog} />
+          <Route path="/login" component={Login} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/register" component={Register} />
+          <Route path="/blog" component={Blog} />
+        </div>
+      </Router>
+      <hr />
+      <footer className="footer py-3 bg-dark text-white">
+        <div className="container">
+          <div className="col-sm">
+            <h4>Footer</h4>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
