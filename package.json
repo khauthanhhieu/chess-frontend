@@ -9,10 +9,6 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^12.19.15",
-    "@types/react": "^16.14.2",
-    "@types/react-dom": "^16.9.10",
     "axios": "^0.21.1",
     "axios-observable": "^1.1.6",
     "bootstrap": "^4.6.0",
@@ -20,6 +16,7 @@
     "react-bootstrap": "^1.4.3",
     "react-cookies": "^0.1.1",
     "react-dom": "^17.0.1",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-toastify": "^7.0.3",
@@ -52,7 +49,12 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^12.19.15",
+    "@types/react": "^16.14.2",
     "@types/react-cookies": "^0.1.0",
+    "@types/react-dom": "^16.9.10",
+    "@types/react-router": "^5.1.7",
     "@types/react-router-dom": "^5.1.7"
   }
 }

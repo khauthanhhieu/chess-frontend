@@ -1,20 +1,21 @@
 import React, { FormEvent, Component } from 'react'
+import { RouteComponentProps } from 'react-router-dom';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import axios from 'axios';
+import { AxiosResponse } from 'axios';
 import cookie from 'react-cookies';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
-import AuthAPI from '../api/auth.api'
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import AuthAPI from '../api/auth.api';
 
-interface Props { }
+interface Props extends RouteComponentProps { };
 
-interface State { }
+interface State { };
 
 export default class Login extends Component<Props, State> {
-  private authAPI = new AuthAPI()
+  private authAPI = new AuthAPI(toast);
 
   constructor(props: Props) {
     super(props);
@@ -25,46 +26,58 @@ export default class Login extends Component<Props, State> {
     event.preventDefault();
     if (event.target) {
       const data = new FormData(event.target as HTMLFormElement);
-      const username = data.get('username')
-      const password = data.get('password')
+      const username = data.get('username');
+      const password = data.get('password');
+
       if (!username || !password) {
-        toast.error('Dữ liệu đầu vào không hợp lệ')
+        toast.error('Dữ liệu đầu vào không hợp lệ');
       } else {
-        this.authAPI.login(username.toString(), password.toString(), (res: Object) => {
-          console.log(res)
-        }, () => console.log('done'))
+        this.authAPI.login(username.toString(), password.toString(), (res: AxiosResponse) => {
+          const isRemember = data.get('is-remember') === 'on';
+          const token = res.data['access_token'];
+          if (isRemember) {
+            // save token in cookie
+            const expires = new Date();
+            expires.setDate(expires.getDate() + 1);
+            cookie.save('token', token, { path: '/', expires });
+          } else {
+            // TODO: fix when add redux
+            cookie.save('token', token, { path: '/' });
+          }
+          this.props.history.push('/');
+        }, () => console.log('done'));
       }
 
-      axios.post('http://localhost:8080/auth/login', {
-        username: data.get('username'),
-        password: data.get('password')
-      }).then(res => {
-        const isRemember = data.get("is-remember") === 'on'
-        const token = res.data['access_token']
-        if (isRemember) {
-          // save token in cookie
-          const expires = new Date()
-          expires.setDate(expires.getDate() + 1)
-          cookie.save('token', token, { path: '/', expires })
-        } else {
-          // TODO: fix when add redux
-          cookie.save('token', token, { path: '/' })
-        }
-      }).catch(error => {
-        if (error.response) {
-          // client received an error response (5xx, 4xx)
-          const { status } = error.response
-          if (status === 401) {
-            toast.error('Thông tin đăng nhập không đúng');
-          }
-        } else if (error.request) {
-          // client never received a response, or request never left
-          toast.error('Máy chủ không có phản hồi');
-        } else {
-          // only God knows
-          console.log('Error', error.message);
-        }
-      })
+      // axios.post('http://localhost:8080/auth/login', {
+      //   username: data.get('username'),
+      //   password: data.get('password')
+      // }).then(res => {
+      //   const isRemember = data.get("is-remember") === 'on'
+      //   const token = res.data['access_token']
+      //   if (isRemember) {
+      //     // save token in cookie
+      //     const expires = new Date()
+      //     expires.setDate(expires.getDate() + 1)
+      //     cookie.save('token', token, { path: '/', expires })
+      //   } else {
+      //     // TODO: fix when add redux
+      //     cookie.save('token', token, { path: '/' })
+      //   }
+      // }).catch(error => {
+      //   if (error.response) {
+      //     // client received an error response (5xx, 4xx)
+      //     const { status } = error.response
+      //     if (status === 401) {
+      //       toast.error('Thông tin đăng nhập không đúng');
+      //     }
+      //   } else if (error.request) {
+      //     // client never received a response, or request never left
+      //     toast.error('Máy chủ không có phản hồi');
+      //   } else {
+      //     // only God knows
+      //     console.log('Error', error.message);
+      //   }
+      // })
     }
   }
 
@@ -102,6 +115,6 @@ export default class Login extends Component<Props, State> {
         </Button>
         </Form>
       </div>
-    )
+    );
   }
 }

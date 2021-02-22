@@ -2,8 +2,8 @@ import { noop } from 'rxjs';
 import BaseAPI from './base.api';
 
 export default class AuthAPI extends BaseAPI {
-  constructor() {
-    super();
+  constructor(toast: Object) {
+    super(toast);
     this.module = 'auth';
   }
 

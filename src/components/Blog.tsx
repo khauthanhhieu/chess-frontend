@@ -1,8 +1,5 @@
-import React, { FormEvent, Component } from 'react'
-
-import { ToastContainer, toast } from 'react-toastify';
+import React, { Component } from 'react'
 import 'react-toastify/dist/ReactToastify.css';
-
 import BlogAPI from '../api/blog.api'
 
 interface Props { }

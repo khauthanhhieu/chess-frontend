@@ -2,16 +2,22 @@ import config from './config.api';
 import axios from 'axios-observable';
 import { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 import { noop } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
 import cookie from 'react-cookies';
+import { toast } from 'react-toastify';
+
+type Toast = typeof toast
 
 type Next = (value: AxiosResponse<any>) => void
-type Error = (error: any) => void
 type Complete = () => void
 
 export default class BaseAPI {
   private _url: URL | undefined;
-  protected module: string = ''
+  private _toast: Toast | undefined;
+  protected module: string = '';
+
+  constructor(toast?: Object) {
+    this._toast = toast as Toast
+  }
 
   private setPath(path: string) {
     if (!path.startsWith('/')) {
@@ -39,16 +45,18 @@ export default class BaseAPI {
       error => {
         if (error.response) {
           // client received an error response (5xx, 4xx)
-          throw new Error(error.response.status)
+          const { status } = error.response
+          if (status === 401) {
+            this._toast?.error('Thông tin đăng nhập không đúng');
+          }
         } else if (error.request) {
           // client never received a response, or request never left
-          throw new Error('timeout')
+          this._toast?.error('Máy chủ không có phản hồi');
         } else {
           // only God knows
-          throw new Error('unknow')
+          this._toast?.error('Lỗi không xác định');
         }
-      },
-      () => complete()
+      }, () => complete()
     )
   }
 
