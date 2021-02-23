@@ -1,13 +1,16 @@
 import React, { FormEvent, Component } from 'react'
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { AxiosResponse } from 'axios';
 import cookie from 'react-cookies';
-
 import { toast } from 'react-toastify';
+
+import { AxiosResponse } from 'axios';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import AuthAPI from '../api/auth.api';
+
+import AuthAPI from '../../api/auth.api';
+
+import './style.css'
 
 interface Props extends RouteComponentProps { };
 
@@ -46,72 +49,45 @@ export default class Login extends Component<Props, State> {
           this.props.history.push('/');
         }, () => console.log('done'));
       }
-
-      // axios.post('http://localhost:8080/auth/login', {
-      //   username: data.get('username'),
-      //   password: data.get('password')
-      // }).then(res => {
-      //   const isRemember = data.get("is-remember") === 'on'
-      //   const token = res.data['access_token']
-      //   if (isRemember) {
-      //     // save token in cookie
-      //     const expires = new Date()
-      //     expires.setDate(expires.getDate() + 1)
-      //     cookie.save('token', token, { path: '/', expires })
-      //   } else {
-      //     // TODO: fix when add redux
-      //     cookie.save('token', token, { path: '/' })
-      //   }
-      // }).catch(error => {
-      //   if (error.response) {
-      //     // client received an error response (5xx, 4xx)
-      //     const { status } = error.response
-      //     if (status === 401) {
-      //       toast.error('Thông tin đăng nhập không đúng');
-      //     }
-      //   } else if (error.request) {
-      //     // client never received a response, or request never left
-      //     toast.error('Máy chủ không có phản hồi');
-      //   } else {
-      //     // only God knows
-      //     console.log('Error', error.message);
-      //   }
-      // })
     }
   }
 
   render() {
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit} className='container'>
-          <Form.Group className='row'>
+      <div className="parent container">
+        <Form className="form col-sm-6 col-12 shadow-lg bg-white rounded" onSubmit={this.handleSubmit}>
+          <Form.Group className="row">
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon1">
                   <Icon icon={faUser} />
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control name="username" placeholder="Username or email" />
+              <Form.Control name="username" placeholder="Tên đăng nhập hoặc địa chỉ email" />
             </InputGroup>
           </Form.Group>
 
-          <Form.Group className='row'>
+          <Form.Group className="row">
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon1">
                   <Icon icon={faLock} />
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control name="password" type="password" placeholder="Password" />
+              <Form.Control name="password" type="password" placeholder="Mật khẩu" />
             </InputGroup>
           </Form.Group>
 
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check name="is-remember" type="checkbox" label="Remember me" />
+          <Form.Group controlId="formBasicCheckbox" className="row">
+            <Form.Check name="is-remember" type="checkbox" label="Ghi nhớ đăng nhập" />
           </Form.Group>
-          <Button className='row' variant="primary" type="submit">
-            Submit
-        </Button>
+
+          <div className="row d-flex justify-content-around">
+            <Link to="/register">Tạo tài khoản</Link>
+            <Button className="row" variant="primary" type="submit">
+              Đăng nhập
+            </Button>
+          </div>
         </Form>
       </div>
     );

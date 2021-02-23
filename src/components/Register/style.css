@@ -1,0 +1,14 @@
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+  
+.form {
+  padding: 60px 40px 60px 40px !important;
+}
+
+/* input {
+  width: 100px;
+} */

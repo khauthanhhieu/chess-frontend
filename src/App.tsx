@@ -1,25 +1,26 @@
 import React from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.js';
-import PrivateRoute from './elements/PrivateRoute';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
+import { Header, PrivateRoute, OnlyGuestRoute } from './elements';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Register from './components/Register';
+import Dashboard from './components/Dashboard';
 
 import { ToastContainer } from 'react-toastify';
+
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
-import Dashboard from './components/Dashboard';
-import Header from './elements/Header';
+
+import 'bootstrap/dist/js/bootstrap.js';
 
 function App() {
   return (
     <div>
       <Router>
-        <div className="main-route-place">
-          <Route path="/login" component={Login}/>
+        <div className="fullscreen">
+          <OnlyGuestRoute path="/login" component={Login}/>
           <Route path="/logout" component={Logout} />
           <Route path="/register" component={Register} />
           <Dashboard>
@@ -27,14 +28,6 @@ function App() {
           </Dashboard>
         </div>
       </Router>
-      <hr />
-      <footer className="footer py-3 bg-dark text-white">
-        <div className="container">
-          <div className="col-sm">
-            <h4>Footer</h4>
-          </div>
-        </div>
-      </footer>
       <ToastContainer
         position="top-center"
         autoClose={3000}

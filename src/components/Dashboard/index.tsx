@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Blog from './Blog'
 import Profile from './Profile'
-import { Route, BrowserRouter as Router } from 'react-router-dom';
-import PrivateRoute from '../../elements/PrivateRoute';
+import { Route } from 'react-router-dom';
+import { PrivateRoute } from '../../elements';
 
 interface Props { }
 
