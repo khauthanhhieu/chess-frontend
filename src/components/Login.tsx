@@ -5,7 +5,6 @@ import { AxiosResponse } from 'axios';
 import cookie from 'react-cookies';
 
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import AuthAPI from '../api/auth.api';

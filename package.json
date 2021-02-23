@@ -12,6 +12,8 @@
     "axios": "^0.21.1",
     "axios-observable": "^1.1.6",
     "bootstrap": "^4.6.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-cookies": "^0.1.1",
@@ -50,6 +52,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
+    "@types/jquery": "^3.5.5",
     "@types/node": "^12.19.15",
     "@types/react": "^16.14.2",
     "@types/react-cookies": "^0.1.0",

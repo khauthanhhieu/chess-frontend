@@ -47,7 +47,7 @@ export default class BaseAPI {
           // client received an error response (5xx, 4xx)
           const { status } = error.response
           if (status === 401) {
-            this._toast?.error('Thông tin đăng nhập không đúng');
+            this._toast?.error('Thông tin đăng nhập không đúng hoặc đã hết hạn');
           }
         } else if (error.request) {
           // client never received a response, or request never left

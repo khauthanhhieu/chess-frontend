@@ -4,7 +4,7 @@ import cookie from 'react-cookies';
 interface IProps extends RouteProps {
   component: any
   path: string
-  exact: boolean
+  exact?: boolean
 }
 
 const PrivateRoute = ({ component: Component, ...rest }: IProps) => (
