@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { AxiosResponse } from 'axios';
 
 import AuthAPI from '../../api/auth.api';
+import { FloatingLabelInput } from '../../elements'
 
 import './style.css'
 
@@ -53,31 +54,31 @@ export default class Register extends Component<Props, State> {
   render() {
     return (
       <div className="parent container">
-        <form className="form col-sm-8 col-12 shadow-lg bg-white rounded" onSubmit={this.handleSubmit}>
+        <form className="form col-sm-8 col-12 shadow-lg bg-white rounded go-top" onSubmit={this.handleSubmit}>
           <div className="row form-group">
             <div className="col-sm input-group">
-              <input className="form-control" name="lastname" placeholder="Họ" />
+              <FloatingLabelInput label="Họ" id="lastname" name="lastname"></FloatingLabelInput>
             </div>
             <div className="col-sm input-group">
-              <input className="form-control" name="middlename" placeholder="Tên lót" />
+              <FloatingLabelInput label="Tên lót" id="middlename" name="middlename"></FloatingLabelInput>
             </div>
             <div className="col-sm input-group">
-              <input className="form-control" name="firstname" placeholder="Tên" />
+              <FloatingLabelInput label="Tên" id="firstname" name="firstname"></FloatingLabelInput>
             </div>
           </div>
 
           <div className="row form-group">
             <div className="col-sm input-group">
-              <input className="form-control" name="contact" placeholder="Số điện thoại hoặc địa chỉ email" />
+              <FloatingLabelInput label="Số điện thoại hoặc địa chỉ email" id="contact" name="contact"></FloatingLabelInput>
             </div>
           </div>
 
           <div className="row form-group">
             <div className="col-sm input-group">
-              <input className="form-control" name="password" type="password" placeholder="Mật khẩu" />
+              <FloatingLabelInput label="Mật khẩu" id="password" name="password" type="password"></FloatingLabelInput>
             </div>
             <div className="col-sm input-group">
-              <input className="form-control" name="repassword" type="password" placeholder="Xác nhận" />
+              <FloatingLabelInput label="Xác nhận" id="repassword" name="repassword" type="password"></FloatingLabelInput>
             </div>
           </div>
 

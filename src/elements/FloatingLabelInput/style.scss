@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font: 14px/1.4 Sans-Serif;
+}
+
+form {
+  width: 320px;
+  float: left;
+  margin: 20px;
+  > div {
+    position: relative;
+    overflow: hidden;
+  }
+  input, textarea {
+    width: 100%;
+    border: 2px solid gray;
+    background: none !important;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 8px 12px; 
+    outline: 0;
+    &:focus + label, &:valid + label {
+      background: white;
+      color: black;
+      font-size: 70%;
+      padding: 1px 6px;
+      z-index: 3;
+    }
+  }
+  label {
+    transition: // not padding
+      background 0.2s,
+      color 0.2s,
+      top 0.2s,
+      bottom 0.2s,
+      right 0.2s,
+      left 0.2s;
+    position: absolute;
+    color: #999;
+    padding: 10px 6px;
+    margin-left: 20px;
+    height: fit-content;
+  }
+  textarea {
+    display: block;
+    resize: vertical;
+  }
+}
+
+form.go-top {
+  input, textarea {
+    padding: 12px 12px 12px 12px; 
+    margin-top: 4px;
+  }
+  label {
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+  input:focus, input:valid, textarea:focus, textarea:valid {
+    padding: 9px 6px 4px 6px;
+    box-shadow: none;
+  }
+  input:focus + label, input:valid + label, textarea:focus + label, textarea:valid + label {
+    top: 12px;
+    margin-top: -16px;
+  }
+}
