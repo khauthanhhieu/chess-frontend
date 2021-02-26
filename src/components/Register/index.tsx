@@ -204,8 +204,8 @@ export default class Register extends Component<Props, State> {
                 type="password"
                 error={errorMsg.password}
                 onFocus={this.handleFocusPassword}
-                onBlur={this.handleBlurPassword}
-              ></FloatingLabelInput>
+                onBlur={this.handleBlurPassword}>
+              </FloatingLabelInput>
             </div>
             <div className="col-sm-6 input-group">
               <FloatingLabelInput
@@ -226,7 +226,6 @@ export default class Register extends Component<Props, State> {
                 name="birth"
                 label="Ngày sinh"
                 type="date"
-                // defaultValue={date}
                 error={errorMsg.contact}
                 onFocus={this.handleFocusContact}
                 onBlur={this.handleBlurContact}>

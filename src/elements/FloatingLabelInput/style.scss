@@ -32,6 +32,11 @@ form {
       z-index: 3;
     }
   }
+
+  .full-width {
+    width: -webkit-fill-available !important;
+  }
+
   label {
     transition: // not padding
       background 0.2s,
